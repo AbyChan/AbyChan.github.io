@@ -67,4 +67,6 @@ theme: minos
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repository: git@github.com:AbyChan/AbyChan.github.com.git
+  branch: master
