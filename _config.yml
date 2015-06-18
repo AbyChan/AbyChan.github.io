@@ -76,5 +76,4 @@ deploy:
 baidusitemap:
     path: baidusitemap.xml
 
-duoshuo_shortname: tyan.io
 disqus_shortname: tyanio
