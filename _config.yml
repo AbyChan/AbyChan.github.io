@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
+title: Tyan | AbyChan | Blog
+subtitle: 沙漠的另一边 沙漠罢了
 description:
-author: John Doe
-language:
+author: Tyan
+language: zh_CN
 timezone:
 
 # URL
@@ -20,6 +20,7 @@ permalink_defaults:
 # Directory
 source_dir: source
 public_dir: public
+hand_dir: hand
 tag_dir: tags
 archive_dir: archives
 category_dir: categories
@@ -62,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: minos
+theme: pacman-master
 
 plugin: baidusitemap, tag-vimhighlight
 
