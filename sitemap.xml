@@ -2,12 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://tyan.io/2014/12/17/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%BF%90%E8%BD%BDRealtek-RTL8188%E5%90%AF%E5%8A%A8hotspot%E5%BC%80%E5%90%AFwifi%EF%BC%88%E7%BC%96%E8%AF%91%E9%A9%B1%E5%8A%A8%EF%BC%89/</loc>
-    <lastmod>2015-07-17T02:58:34.288Z</lastmod>
+    <loc>http://tyan.io/2015/07/22/%E7%A5%9E%E5%99%A8fiddler%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84/</loc>
+    <lastmod>2015-07-22T12:09:11.067Z</lastmod>
   </url>
   
   <url>
     <loc>http://tyan.io/demo/demo.js</loc>
+    <lastmod>2015-07-17T02:58:34.288Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://tyan.io/2015/05/10/%E6%95%99%E4%BD%A0%E7%94%A8Django%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84GIS%E5%8A%9F%E8%83%BD/</loc>
     <lastmod>2015-07-17T02:58:34.288Z</lastmod>
   </url>
   
@@ -37,12 +42,12 @@
   </url>
   
   <url>
-    <loc>http://tyan.io/2015/06/30/%E6%95%99%E5%A4%A7%E5%AE%B6%E7%94%B3%E8%AF%B7%E5%85%8D%E8%B4%B9ssl%E8%AF%81%E4%B9%A6/</loc>
+    <loc>http://tyan.io/2014/12/17/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%BF%90%E8%BD%BDRealtek-RTL8188%E5%90%AF%E5%8A%A8hotspot%E5%BC%80%E5%90%AFwifi%EF%BC%88%E7%BC%96%E8%AF%91%E9%A9%B1%E5%8A%A8%EF%BC%89/</loc>
     <lastmod>2015-07-17T02:58:34.288Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tyan.io/2015/05/10/%E6%95%99%E4%BD%A0%E7%94%A8Django%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84GIS%E5%8A%9F%E8%83%BD/</loc>
+    <loc>http://tyan.io/2015/06/30/%E6%95%99%E5%A4%A7%E5%AE%B6%E7%94%B3%E8%AF%B7%E5%85%8D%E8%B4%B9ssl%E8%AF%81%E4%B9%A6/</loc>
     <lastmod>2015-07-17T02:58:34.288Z</lastmod>
   </url>
   
@@ -57,12 +62,12 @@
   </url>
   
   <url>
-    <loc>http://tyan.io/2015/03/30/postgresql-%E7%AB%AF%E5%8F%A3%E4%B8%8D%E5%AF%B9%E5%A4%96%E5%BC%80%E6%94%BE%E9%97%AE%E9%A2%98/</loc>
+    <loc>http://tyan.io/2014/11/17/sqoop-job-mapreduce%E8%BF%90%E8%A1%8C%E5%A4%B1%E8%B4%A5/</loc>
     <lastmod>2015-07-17T02:58:34.284Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tyan.io/2014/11/17/sqoop-job-mapreduce%E8%BF%90%E8%A1%8C%E5%A4%B1%E8%B4%A5/</loc>
+    <loc>http://tyan.io/2015/06/09/linux%E7%BD%91%E7%BB%9C%E5%88%86%E4%BA%AB%E6%9D%82%E8%B0%88/</loc>
     <lastmod>2015-07-17T02:58:34.284Z</lastmod>
   </url>
   
@@ -117,7 +122,7 @@
   </url>
   
   <url>
-    <loc>http://tyan.io/2015/06/09/linux%E7%BD%91%E7%BB%9C%E5%88%86%E4%BA%AB%E6%9D%82%E8%B0%88/</loc>
+    <loc>http://tyan.io/2015/03/30/postgresql-%E7%AB%AF%E5%8F%A3%E4%B8%8D%E5%AF%B9%E5%A4%96%E5%BC%80%E6%94%BE%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2015-07-17T02:58:34.284Z</lastmod>
   </url>
   
