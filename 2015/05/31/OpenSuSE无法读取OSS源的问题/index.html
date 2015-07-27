@@ -1,0 +1,344 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>OpenSuSE无法读取OSS源的问题 | Tyan | AbyChan | Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Tyan">
+    
+    <meta name="description" content="最近又装上了OpenSuSE，我曾经的最爱！（现在确实发现了opensuse的一些不足，例如包管理器）
+但是不知道这次又出现了什么问题，安装一些软件总是报错无法依赖，费了老大的劲才发现原来是OSS和NON-OSS里面的包无法读取当时我就懵B了，明明源在里面的啊，中科大的源也一并加上了（其实是一样，O">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Tyan | AbyChan | Blog" title="Tyan | AbyChan | Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tyan | AbyChan | Blog">Tyan | AbyChan | Blog</a></h1>
+				<h2 class="blog-motto">沙漠的另一边 沙漠罢了</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:tyan.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/31/OpenSuSE无法读取OSS源的问题/" title="OpenSuSE无法读取OSS源的问题" itemprop="url">OpenSuSE无法读取OSS源的问题</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://tyan.io" title="Tyan">Tyan</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-05-31T06:46:11.000Z" itemprop="datePublished">2015-05-31</time>
+    更新日期:<time datetime="2015-07-17T02:58:34.280Z" itemprop="dateModified">2015-07-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+		</div>
+		
+		<p>最近又装上了OpenSuSE，我曾经的最爱！（现在确实发现了opensuse的一些不足，例如包管理器）</p>
+<p>但是不知道这次又出现了什么问题，安装一些软件总是报错无法依赖，费了老大的劲才发现原来是OSS和NON-OSS里面的包无法读取<br>当时我就懵B了，明明源在里面的啊，中科大的源也一并加上了（其实是一样，OpenSuSE采用了MirrorBrain 技术， 中央服务器会按照 IP 地理位置中转下载请求到附近的镜像服务器，我在武汉ip会转到USTC）<br>又费了老大的劲，终于发现原因了<br>一下是OSS的目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[   ] ARCHIVES.gz                      <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">20</span>:<span class="number">27</span>   <span class="number">50</span>M   Details</span><br><span class="line">[   ] ChangeLog                        <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">20</span>:<span class="number">14</span>   <span class="number">57</span>M   Details</span><br><span class="line">[DIR] EFI/                             <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">21</span>:<span class="number">14</span>    -</span><br><span class="line">[TXT] GPLv2.txt                        <span class="number">25</span>-Oct-<span class="number">2014</span> <span class="number">11</span>:<span class="number">10</span>   <span class="number">18</span>K   Details</span><br><span class="line">[TXT] GPLv3.txt                        <span class="number">25</span>-Oct-<span class="number">2014</span> <span class="number">11</span>:<span class="number">10</span>   <span class="number">34</span>K   Details</span><br><span class="line">[   ] INDEX.gz                         <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">20</span>:<span class="number">27</span>  <span class="number">291</span>K   Details</span><br><span class="line">[   ] README                           <span class="number">25</span>-Oct-<span class="number">2014</span> <span class="number">11</span>:<span class="number">10</span>  <span class="number">1.1</span>K   Details</span><br><span class="line">[IMG] SuSEgo.ico                       <span class="number">25</span>-Oct-<span class="number">2014</span> <span class="number">11</span>:<span class="number">10</span>  <span class="number">2.2</span>K   Details</span><br><span class="line">[DIR] boot/                            <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">21</span>:<span class="number">14</span>    -</span><br><span class="line">[   ] content                          <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">20</span>:<span class="number">27</span>   <span class="number">19</span>K   Details</span><br><span class="line">[   ] content.asc                      <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">21</span>:<span class="number">00</span>  <span class="number">481</span>    Details</span><br><span class="line">[   ] content.key                      <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">21</span>:<span class="number">00</span>  <span class="number">1.0</span>K   Details</span><br><span class="line">[TXT] control.xml                      <span class="number">25</span>-Sep-<span class="number">2014</span> <span class="number">14</span>:<span class="number">02</span>   <span class="number">47</span>K   Details</span><br><span class="line">[   ] directory.yast                   <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">20</span>:<span class="number">27</span>  <span class="number">256</span>    Details</span><br><span class="line">[DIR] docu/                            <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">21</span>:<span class="number">14</span>    -</span><br><span class="line">[   ] gpg-pubkey-<span class="number">3</span>dbdc284-<span class="number">53674</span>dd4.asc <span class="number">25</span>-Oct-<span class="number">2014</span> <span class="number">11</span>:<span class="number">10</span>  <span class="number">1.0</span>K   Details</span><br><span class="line">[   ] gpg-pubkey-<span class="number">307</span>e3d54-<span class="number">4</span>be01a65.asc <span class="number">25</span>-Oct-<span class="number">2014</span> <span class="number">11</span>:<span class="number">10</span>  <span class="number">673</span>    Details</span><br><span class="line">[   ] license.tar.gz                   <span class="number">25</span>-Oct-<span class="number">2014</span> <span class="number">11</span>:<span class="number">10</span>   <span class="number">41</span>K   Details</span><br><span class="line">[   ] ls<span class="operator">-l</span>R.gz                         <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">20</span>:<span class="number">27</span>  <span class="number">536</span>K   Details</span><br><span class="line">[DIR] media.<span class="number">1</span>/                         <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">21</span>:<span class="number">14</span>    -</span><br><span class="line">[   ] openSUSE13_2_NET.exe             <span class="number">25</span>-Sep-<span class="number">2014</span> <span class="number">11</span>:<span class="number">07</span>  <span class="number">554</span>K   Details</span><br><span class="line">[DIR] suse/                            <span class="number">27</span>-Oct-<span class="number">2014</span> <span class="number">21</span>:<span class="number">14</span>    -</span><br></pre></td></tr></table></figure></p>
+<p>不知道什么时候开始目录变成这样了，正确的源在最后的目录suse里面<br>所以正确的源url是<a href="http://download.opensuse.org/distribution/13.2/repo/oss/suse/" target="_blank" rel="external">http://download.opensuse.org/distribution/13.2/repo/oss/suse/</a></p>
+<p>non-oss同理</p>
+<p>悲哉我大蜥蜴啊，想说爱你不容易啊</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/opensuse/">opensuse</a><a href="/tags/opensuse13-2/">opensuse13.2</a><a href="/tags/opensuse依赖/">opensuse依赖</a><a href="/tags/oss/">oss</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://tyan.io/2015/05/31/OpenSuSE无法读取OSS源的问题/" data-title="OpenSuSE无法读取OSS源的问题 | Tyan | AbyChan | Blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/05/31/把你的用户关进监牢里面-控制ssh登陆自动chroot/" title="把你的用户关进监牢里面:) 控制ssh登陆自动chroot">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  把你的用户关进监牢里面:) 控制ssh登陆自动chroot</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/05/31/CubieBoard4用Chroot监狱安装Gentoo子系统/"  title="CubieBoard4用Chroot监狱安装Gentoo子系统">
+ <strong>NEXT:</strong><br/> 
+ <span>CubieBoard4用Chroot监狱安装Gentoo子系统
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/R/" title="R">R<sup>1</sup></a></li>
+		
+			<li><a href="/tags/RMysql/" title="RMysql">RMysql<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web前端架构/" title="Web前端架构">Web前端架构<sup>1</sup></a></li>
+		
+			<li><a href="/tags/angular/" title="angular">angular<sup>1</sup></a></li>
+		
+			<li><a href="/tags/arm/" title="arm">arm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/binary/" title="binary">binary<sup>1</sup></a></li>
+		
+			<li><a href="/tags/c4-5/" title="c4.5">c4.5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cb4/" title="cb4">cb4<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chrome/" title="chrome">chrome<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chroot/" title="chroot">chroot<sup>2</sup></a></li>
+		
+			<li><a href="/tags/chroot-jail/" title="chroot jail">chroot jail<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css3/" title="css3">css3<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cubieboard/" title="cubieboard">cubieboard<sup>1</sup></a></li>
+		
+			<li><a href="/tags/database/" title="database">database<sup>3</sup></a></li>
+		
+			<li><a href="/tags/dhcp/" title="dhcp">dhcp<sup>1</sup></a></li>
+		
+			<li><a href="/tags/django/" title="django">django<sup>2</sup></a></li>
+		
+			<li><a href="/tags/emacs/" title="emacs">emacs<sup>1</sup></a></li>
+		
+			<li><a href="/tags/emasc美化/" title="emasc美化">emasc美化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/fcitx/" title="fcitx">fcitx<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://tyan.io" target="_blank" title="Tyan">Tyan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  </body>
+</html>

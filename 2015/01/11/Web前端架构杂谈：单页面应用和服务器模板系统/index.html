@@ -1,0 +1,352 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Web前端架构杂谈：单页面应用和服务器模板系统 | Tyan | AbyChan | Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Tyan">
+    
+    <meta name="description" content="单页Web应用程序：
+单页应用（Single Page Application）越来越受web开发者欢迎，单页应用的体验可以模拟原生应用，一次开发，多端兼容。单页应用并不是一个全新发明的技术，而是随着互联网的发展，满足用户体验的一种综合技术，更大有吹捧者。
+这种技术近几年随着移动端的大热也渐渐升温，">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Tyan | AbyChan | Blog" title="Tyan | AbyChan | Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tyan | AbyChan | Blog">Tyan | AbyChan | Blog</a></h1>
+				<h2 class="blog-motto">沙漠的另一边 沙漠罢了</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:tyan.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/11/Web前端架构杂谈：单页面应用和服务器模板系统/" title="Web前端架构杂谈：单页面应用和服务器模板系统" itemprop="url">Web前端架构杂谈：单页面应用和服务器模板系统</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://tyan.io" title="Tyan">Tyan</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-01-11T04:16:07.000Z" itemprop="datePublished">2015-01-11</time>
+    更新日期:<time datetime="2015-07-17T02:58:34.280Z" itemprop="dateModified">2015-07-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+		</div>
+		
+		<p>单页Web应用程序：</p>
+<p>单页应用（Single Page Application）越来越受web开发者欢迎，单页应用的体验可以模拟原生应用，一次开发，多端兼容。单页应用并不是一个全新发明的技术，而是随着互联网的发展，满足用户体验的一种综合技术，更大有吹捧者。</p>
+<p>这种技术近几年随着移动端的大热也渐渐升温，BackBone，Angular等前端框架兴起，结合NodeJs，使得前后端语言同一，前端开发可以兼容后端开发等等，并有替代前几年一统天下的jQuery趋势。</p>
+<p>jQuery的缺点其实非常明显，臃肿和维护性差。</p>
+<p>这里推荐一篇文章：<a href="http://www.angularjs.cn/A0bz" target="_blank" rel="external">http://www.angularjs.cn/A0bz</a></p>
+<p>确实，前端框架非常诱人，不过也有着致命的缺点，SEO问题，要知道，搜索引擎届领跑者Google在Ajax爬取方面尚未取得突破性的成就，更别提国内竞价排名的百度了。</p>
+<p>Ajax爬取也称为暗网爬取，爬虫需要很复杂的算法支持，而单页面前端和后端的连接也基本上通过ReSTful Api，ReSTful Api最近几年的流行程度大家也是知道的了，大家选择ReSTful Api的原因之一可能是“ReSTful Api对搜索引擎友好”，但据我所知，国内的百度对ReSTful Api的支持尚不及传统的Web风格（呵呵一笑了）。</p>
+<p>所以，当你选择了单页面前端应用的时候，里面的内容基本上是很难被搜索引擎获取到的了，单页面前端做信息和展示的想法基本上可以否决掉，商业上的应用也是不用想的了，或许可以做一个功能，不过像Angular这个高度封装的框架对这样的构想不太支持，所以可能又会回到jQuery的路线。</p>
+<p>但是，单页面应用对移动端的响应式支持又十分诱人，不想放弃，而且单页面应用的前端效果也非常理想。</p>
+<p>或许可以用一种取中的方法，传统前端与单页面前端结合！</p>
+<p>不过这种想法很快就被我自己否决掉了，例如J2EE平台，用Jsp或者velocity做view层，再耦合Angular，因为Jsp和velocity属于模板系统的范畴，${}等等标签，遇到angular的双括号会不兼容的，必须转义，python平台的Django框架也一样，造成代码的混乱，可维护和可读性非常差。</p>
+<p>就我个人觉得，单页面应用和模板前端的结合，是一个Bad Idea！</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Web前端架构/">Web前端架构</a><a href="/tags/spa/">spa</a><a href="/tags/单页面应用/">单页面应用</a><a href="/tags/服务器模板/">服务器模板</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://tyan.io/2015/01/11/Web前端架构杂谈：单页面应用和服务器模板系统/" data-title="Web前端架构杂谈：单页面应用和服务器模板系统 | Tyan | AbyChan | Blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/01/28/KNN实践判断iris花的品种/" title="KNN实践判断iris花的品种">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  KNN实践判断iris花的品种</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/01/05/大数据与hadoop前景杂谈/"  title="大数据与hadoop前景杂谈">
+ <strong>NEXT:</strong><br/> 
+ <span>大数据与hadoop前景杂谈
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/R/" title="R">R<sup>1</sup></a></li>
+		
+			<li><a href="/tags/RMysql/" title="RMysql">RMysql<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web前端架构/" title="Web前端架构">Web前端架构<sup>1</sup></a></li>
+		
+			<li><a href="/tags/angular/" title="angular">angular<sup>1</sup></a></li>
+		
+			<li><a href="/tags/arm/" title="arm">arm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/binary/" title="binary">binary<sup>1</sup></a></li>
+		
+			<li><a href="/tags/c4-5/" title="c4.5">c4.5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cb4/" title="cb4">cb4<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chrome/" title="chrome">chrome<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chroot/" title="chroot">chroot<sup>2</sup></a></li>
+		
+			<li><a href="/tags/chroot-jail/" title="chroot jail">chroot jail<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css3/" title="css3">css3<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cubieboard/" title="cubieboard">cubieboard<sup>1</sup></a></li>
+		
+			<li><a href="/tags/database/" title="database">database<sup>3</sup></a></li>
+		
+			<li><a href="/tags/dhcp/" title="dhcp">dhcp<sup>1</sup></a></li>
+		
+			<li><a href="/tags/django/" title="django">django<sup>2</sup></a></li>
+		
+			<li><a href="/tags/emacs/" title="emacs">emacs<sup>1</sup></a></li>
+		
+			<li><a href="/tags/emasc美化/" title="emasc美化">emasc美化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/fcitx/" title="fcitx">fcitx<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://tyan.io" target="_blank" title="Tyan">Tyan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  </body>
+</html>

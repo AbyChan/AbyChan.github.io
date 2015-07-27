@@ -1,0 +1,356 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>大数据与hadoop前景杂谈 | Tyan | AbyChan | Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Tyan">
+    
+    <meta name="description" content="（一家之言，不喜勿喷）
+2014年，大数据可谓是互联网用烂的词之一了，动不动就是大数据，大数据预测世界杯之类的。
+各方培训机构也纷纷开设hadoop之类的课程，动不动就说是大数据世界已经到来。
+本人差不多两年前就开始接触hadoop，大数据，说实话，一开始对大数据是十分有热情的，也认为大数据的前景非">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Tyan | AbyChan | Blog" title="Tyan | AbyChan | Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tyan | AbyChan | Blog">Tyan | AbyChan | Blog</a></h1>
+				<h2 class="blog-motto">沙漠的另一边 沙漠罢了</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:tyan.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/05/大数据与hadoop前景杂谈/" title="大数据与hadoop前景杂谈" itemprop="url">大数据与hadoop前景杂谈</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://tyan.io" title="Tyan">Tyan</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-01-05T04:14:27.000Z" itemprop="datePublished">2015-01-05</time>
+    更新日期:<time datetime="2015-07-17T02:58:34.284Z" itemprop="dateModified">2015-07-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+		</div>
+		
+		<p>（一家之言，不喜勿喷）</p>
+<p>2014年，大数据可谓是互联网用烂的词之一了，动不动就是大数据，大数据预测世界杯之类的。</p>
+<p>各方培训机构也纷纷开设hadoop之类的课程，动不动就说是大数据世界已经到来。</p>
+<p>本人差不多两年前就开始接触hadoop，大数据，说实话，一开始对大数据是十分有热情的，也认为大数据的前景非常好。</p>
+<p>不过，大数据真的那么火吗？</p>
+<p>我看未必，大数据时代还早着呢。</p>
+<p>互联网上自称是大数据是应用根本算不上是大数据，举个例子，大数据预测世界杯，就算把人类所有的足球比赛都拿来预测，那有多少数据量，100G已经是顶天了， 100G算得上是大数据吗，全部的数据都适用吗？答案是否定的，过多的数据参杂进来，就算算法逆天也会产生副作用。</p>
+<p>类似这样的应用，这样的数据量根本不是大数据，根本用不上hadoop，说白了就是数据挖掘而已，而今人们说的大数据，其实就是数据挖掘。对于现在互联网对大数据的热情，对大数据的跟风，其实是非常不一样的，试想，有多少公司拥有大数据？一天几百GB的数据根本用不上hadoop，除了BAT，有公司一天会产生几百个GB吗，也许有，号称几个TB的日志，可是搞过服务器端的同志就知道，几个TB的日志有多少水分呢？几个TB的数据其实就是一大堆框架有的没的输入，重复数据多得难以置信，而对这些数据的处理无非就是例如分组，统计之类的操作。这些操作又有多少含金量，高中我们就学过，对与大数据量，抽样统计的效果是差不多的，那么大数据究竟有什么作用。</p>
+<p>就算是BAT，大数据究竟有多少实用性？百度能用大数据来提高搜索体验吗？百度算法还是一样的烂，大数据的作用可能就是做广告推荐，现在百度也是恶心得受不了，到处都是广告，举个例子，我上个贴吧总是看到北大青鸟之类的it培训，可是这些广告我会点进去吗？显然不会，大数据带来了什么？仅仅是匹配，统计我搜索内容而判断我是个it工作者，采用逻辑判断和使用诸多分类聚类算法有何意义？</p>
+<p>最近看到淘宝宣称对大数据进行打假，点进去才看到所谓的大数据是配合人工，号称可以对大数据对图片进行判断，分类等等，我就呵呵一笑了，计算机视觉能完成现在人类都无法完成的事情吗？面对高仿的假货能判断出来？</p>
+<p>商品推荐又是另一回事，能带来多少增量购买我不知道，对于淘宝推荐出来的东西，可能流量产生了，但是真正购买的未必多，就我现在用淘宝的感觉来看，所谓的推荐只是将我搜索过的东西在热度这维度上给我显示出来的，至于什么用户协同推荐之类的，也是没有多大感觉，别人喜欢的东西我一定喜欢吗？人与人的差异性太大了，简单的协同算法根本没有多大作用。</p>
+<p>腾讯就不算了，在人工智能和自然语言处理这两个领域没有突破性进展之前，庞大的聊天数据可用性不见得多。</p>
+<p>现在大数据，说在话是个噱头，还有近年来所谓热门的hadoop，spark，能用上的公司真心不多，很多公司在招hadoop， 根本就是跟风，可用性没有多少，一天几百GB的数据用spark， TB级的数据量才够格用hadoop。那些一个集群才两位数的公司就不说了。</p>
+<p>广东移动一天的数据量也才几百个GB，这个数据量不算大，勉强算上大数据。我所了解的真正有用的大数据国家电网的大数据分析，国家电网有钱（收入是移动的几倍），他们的电气设备有很大的冗余，他们利用大数据对历史数据分析，去冗余。不过这里面也就是数据挖掘起了大作用。</p>
+<p>就hadoop这个所谓热门的工具而言，hdfs是用的。不过其他的，我持保留意见，大数据的根本是数据挖掘，hadoop等是个工具，海量数据的工具，算法才是“神”，说白了hadoop等就是谷歌不用的东西才开源出来的，谷歌早就是后三架马车时代了，我们不必要拿别人不用的东西当成宝，在机器学习领域里，我们国人都是跟着外国的脚步走（整个计算机领域也一样），我们中国的技术其实是非常落后的（我觉得是国内的大佬公司没有起好带头作用，只想着赚钱），现在机器学习仅仅是处理分类聚类的问题，还有很多东西未突破，真心希望国内能出现一两个全新的机器学习算法，引领大数据风潮</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/hadoop/">hadoop</a><a href="/tags/大数据/">大数据</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://tyan.io/2015/01/05/大数据与hadoop前景杂谈/" data-title="大数据与hadoop前景杂谈 | Tyan | AbyChan | Blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/01/11/Web前端架构杂谈：单页面应用和服务器模板系统/" title="Web前端架构杂谈：单页面应用和服务器模板系统">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Web前端架构杂谈：单页面应用和服务器模板系统</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/12/30/shell中调用R语言并传入参数的两种方法/"  title="shell中调用R语言并传入参数的两种方法">
+ <strong>NEXT:</strong><br/> 
+ <span>shell中调用R语言并传入参数的两种方法
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/R/" title="R">R<sup>1</sup></a></li>
+		
+			<li><a href="/tags/RMysql/" title="RMysql">RMysql<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web前端架构/" title="Web前端架构">Web前端架构<sup>1</sup></a></li>
+		
+			<li><a href="/tags/angular/" title="angular">angular<sup>1</sup></a></li>
+		
+			<li><a href="/tags/arm/" title="arm">arm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/binary/" title="binary">binary<sup>1</sup></a></li>
+		
+			<li><a href="/tags/c4-5/" title="c4.5">c4.5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cb4/" title="cb4">cb4<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chrome/" title="chrome">chrome<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chroot/" title="chroot">chroot<sup>2</sup></a></li>
+		
+			<li><a href="/tags/chroot-jail/" title="chroot jail">chroot jail<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css3/" title="css3">css3<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cubieboard/" title="cubieboard">cubieboard<sup>1</sup></a></li>
+		
+			<li><a href="/tags/database/" title="database">database<sup>3</sup></a></li>
+		
+			<li><a href="/tags/dhcp/" title="dhcp">dhcp<sup>1</sup></a></li>
+		
+			<li><a href="/tags/django/" title="django">django<sup>2</sup></a></li>
+		
+			<li><a href="/tags/emacs/" title="emacs">emacs<sup>1</sup></a></li>
+		
+			<li><a href="/tags/emasc美化/" title="emasc美化">emasc美化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/fcitx/" title="fcitx">fcitx<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://tyan.io" target="_blank" title="Tyan">Tyan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  </body>
+</html>

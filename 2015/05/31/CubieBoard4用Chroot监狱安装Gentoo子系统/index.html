@@ -1,0 +1,356 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>CubieBoard4用Chroot监狱安装Gentoo子系统 | Tyan | AbyChan | Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Tyan">
+    
+    <meta name="description" content="Why？闲得蛋疼，手上有一些arm设备，突然想在cubieboard4上装个gentoo，cubieboard的编译速度还是可以，我曾经试过在上面编译phantomjs（加上webkit的），用了一个小时二十分钟，速度虽然不快，但是勉勉强强跑个gentoo应该没问题。但是问题来了，cubieboar">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Tyan | AbyChan | Blog" title="Tyan | AbyChan | Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tyan | AbyChan | Blog">Tyan | AbyChan | Blog</a></h1>
+				<h2 class="blog-motto">沙漠的另一边 沙漠罢了</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:tyan.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/31/CubieBoard4用Chroot监狱安装Gentoo子系统/" title="CubieBoard4用Chroot监狱安装Gentoo子系统" itemprop="url">CubieBoard4用Chroot监狱安装Gentoo子系统</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://tyan.io" title="Tyan">Tyan</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-05-30T16:47:03.000Z" itemprop="datePublished">2015-05-31</time>
+    更新日期:<time datetime="2015-07-17T02:58:34.280Z" itemprop="dateModified">2015-07-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why？"><span class="toc-number">1.</span> <span class="toc-text">Why？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prepare"><span class="toc-number">2.</span> <span class="toc-text">Prepare</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install_some_package"><span class="toc-number">3.</span> <span class="toc-text">Install some package</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Partition_&_Format"><span class="toc-number">4.</span> <span class="toc-text">Partition & Format</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mount"><span class="toc-number">5.</span> <span class="toc-text">Mount</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Download_stage_&_portage"><span class="toc-number">6.</span> <span class="toc-text">Download stage & portage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extract_the_tarball"><span class="toc-number">7.</span> <span class="toc-text">Extract the tarball</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mount_dev_&_proc"><span class="toc-number">8.</span> <span class="toc-text">Mount dev & proc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chroot"><span class="toc-number">9.</span> <span class="toc-text">chroot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#configure"><span class="toc-number">10.</span> <span class="toc-text">configure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Finally"><span class="toc-number">11.</span> <span class="toc-text">Finally</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Next？"><span class="toc-number">12.</span> <span class="toc-text">Next？</span></a></li></ol>
+		</div>
+		
+		<h2 id="Why？">Why？</h2><p>闲得蛋疼，手上有一些arm设备，突然想在cubieboard4上装个gentoo，cubieboard的编译速度还是可以，我曾经试过在上面编译<a href="http://phantomjs.org/" target="_blank" rel="external">phantomjs</a>（加上webkit的），用了一个小时二十分钟，速度虽然不快，但是勉勉强强跑个gentoo应该没问题。<br>但是问题来了，cubieboard4还没有出gentoo啊，本来想自己编译一下组装上去的，但是想了想还是太麻烦，而且手上没有机子装的是UBUNTU12.04，加上官网上发布的系统都有些问题，要是自己编译肯定也会有不少问题。<br>so？还是算了，chroot上安装一个吧，不安装xorg当个服务器玩玩呗，而且没事还能在其他arm上面跑跑，告诉别人树莓派上面跑了个gentoo逼格还是蛮高的。</p>
+<h2 id="Prepare">Prepare</h2><ul>
+<li>armv7[hf]设备一台，当然，你也可以在amd64或者其他机器上跑，都是一样的。不过我觉得那样还不如自己装个gentoo呢：）</li>
+<li>8G-32G U盘一枚，我推荐16G，8G太小32G用不了。当然，你也可以自己建个ISO固定文件什么的（我不会的：）</li>
+<li>联网：）</li>
+</ul>
+<h2 id="Install_some_package">Install some package</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install dchroot debootstrap</span><br></pre></td></tr></table></figure>
+<p>其他系统请自行google</p>
+<h2 id="Partition_&amp;_Format">Partition &amp; Format</h2><p>对U盘分区，这里推荐Gparted吧，还是图形界面好用吧，随便你怎么分，不过我随便玩玩的心态就只分了一个区，推荐ext3或者ext4</p>
+<h2 id="Mount">Mount</h2><p>挂载分区，随便怎么挂，Chroot不用root权限的。不过我建议还是/mnt/gentoo<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount /dev/sda1 /mnt/gentoo</span><br></pre></td></tr></table></figure></p>
+<h2 id="Download_stage_&amp;_portage">Download stage &amp; portage</h2><p>到<a href="https://www.gentoo.org/downloads/mirrors/" target="_blank" rel="external">Gentoo镜像</a>中找你喜欢的镜像，选择自己的cpu架构，版本，把stageX.bz2*这个压缩包下回来。<br>然后到snapshots这个目录，把最新的portage下载回来（不分架构）</p>
+<h2 id="Extract_the_tarball">Extract the tarball</h2><p>解压<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo mv stage3*.bz2* portage.bz2* /mnt/gentoo</span><br><span class="line">sudo tar xvjpf stage3*.bz2</span><br><span class="line">sudo rm stage3*.bz2* /mnt/gentoo</span><br><span class="line">tar xvjf /mnt/gentoo/portage-&lt;date&gt;.tar.bz2 -C /mnt/gentoo/usr</span><br></pre></td></tr></table></figure></p>
+<p>(别直接复制哥，自己稍微改一下，我相信会用gentoo的哥们都是木有问题的）</p>
+<h2 id="Mount_dev_&amp;_proc">Mount dev &amp; proc</h2><p>把设备和进程都挂载进去，因为这不是虚拟化，随便和DNS解析都复制进去，有必要的话把locale也复制进去吧，locale好像在/usr/lib/locale<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo cp -L /etc/resolv.conf /mnt/gentoo/etc/resolv.conf</span><br><span class="line">sudo mount -t proc none /mnt/gentoo/proc</span><br><span class="line">sudo mount -o <span class="built_in">bind</span> /dev /mnt/gentoo/dev</span><br></pre></td></tr></table></figure></p>
+<h2 id="chroot">chroot</h2><p>恭喜，如果没有什么问题的话，已经可以chroot进去gentoo系统了，没错，就是这么简单<br>注意一点，chroot进去是默认用自己uid和变量，也就是root chroot进去用的是uid=0，所以刚进去什么也没有配置的话建议还是su进root里面在chroot<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chroot /mnt/gentoo /bin/bash</span><br></pre></td></tr></table></figure></p>
+<h2 id="configure">configure</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/sbin/env-update</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line">emerge --sync</span><br></pre></td></tr></table></figure>
+<h2 id="Finally">Finally</h2><p>该干嘛干嘛：）<br>Tip：如果想在其他arm设备上chroot，只需要把u盘插上去，重复上面的配置工作即可（不用重新分区解压等等）建议自己写个shell脚本自动化配置</p>
+<h2 id="Next？">Next？</h2><p>下一篇文章我给大家介绍一下如果使用ssh登陆时自动chroot</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/chroot/">chroot</a><a href="/tags/cubieboard/">cubieboard</a><a href="/tags/gentoo/">gentoo</a><a href="/tags/raspberry/">raspberry</a><a href="/tags/树莓派/">树莓派</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://tyan.io/2015/05/31/CubieBoard4用Chroot监狱安装Gentoo子系统/" data-title="CubieBoard4用Chroot监狱安装Gentoo子系统 | Tyan | AbyChan | Blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/05/31/OpenSuSE无法读取OSS源的问题/" title="OpenSuSE无法读取OSS源的问题">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  OpenSuSE无法读取OSS源的问题</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/05/10/教你用Django实现一个简单的GIS功能/"  title="教你用Django实现一个简单的GIS功能">
+ <strong>NEXT:</strong><br/> 
+ <span>教你用Django实现一个简单的GIS功能
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why？"><span class="toc-number">1.</span> <span class="toc-text">Why？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prepare"><span class="toc-number">2.</span> <span class="toc-text">Prepare</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install_some_package"><span class="toc-number">3.</span> <span class="toc-text">Install some package</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Partition_&_Format"><span class="toc-number">4.</span> <span class="toc-text">Partition & Format</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mount"><span class="toc-number">5.</span> <span class="toc-text">Mount</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Download_stage_&_portage"><span class="toc-number">6.</span> <span class="toc-text">Download stage & portage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extract_the_tarball"><span class="toc-number">7.</span> <span class="toc-text">Extract the tarball</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mount_dev_&_proc"><span class="toc-number">8.</span> <span class="toc-text">Mount dev & proc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chroot"><span class="toc-number">9.</span> <span class="toc-text">chroot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#configure"><span class="toc-number">10.</span> <span class="toc-text">configure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Finally"><span class="toc-number">11.</span> <span class="toc-text">Finally</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Next？"><span class="toc-number">12.</span> <span class="toc-text">Next？</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/R/" title="R">R<sup>1</sup></a></li>
+		
+			<li><a href="/tags/RMysql/" title="RMysql">RMysql<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web前端架构/" title="Web前端架构">Web前端架构<sup>1</sup></a></li>
+		
+			<li><a href="/tags/angular/" title="angular">angular<sup>1</sup></a></li>
+		
+			<li><a href="/tags/arm/" title="arm">arm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/binary/" title="binary">binary<sup>1</sup></a></li>
+		
+			<li><a href="/tags/c4-5/" title="c4.5">c4.5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cb4/" title="cb4">cb4<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chrome/" title="chrome">chrome<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chroot/" title="chroot">chroot<sup>2</sup></a></li>
+		
+			<li><a href="/tags/chroot-jail/" title="chroot jail">chroot jail<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css3/" title="css3">css3<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cubieboard/" title="cubieboard">cubieboard<sup>1</sup></a></li>
+		
+			<li><a href="/tags/database/" title="database">database<sup>3</sup></a></li>
+		
+			<li><a href="/tags/dhcp/" title="dhcp">dhcp<sup>1</sup></a></li>
+		
+			<li><a href="/tags/django/" title="django">django<sup>2</sup></a></li>
+		
+			<li><a href="/tags/emacs/" title="emacs">emacs<sup>1</sup></a></li>
+		
+			<li><a href="/tags/emasc美化/" title="emasc美化">emasc美化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/fcitx/" title="fcitx">fcitx<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://tyan.io" target="_blank" title="Tyan">Tyan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  </body>
+</html>

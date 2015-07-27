@@ -1,0 +1,348 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Linux下uWSGI+NGINX部署Django+AngularJs | Tyan | AbyChan | Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Tyan">
+    
+    <meta name="description" content="最近尝尝鲜，试试单页面框架Augular，之前就有单页面前端开发经验，不过那是用jQuery的最近jQuery缺点太明显了，太臃肿了，大的前端应用往往都是一个一个jq组建，插件堆积而出，加上对DOM操作的随意性，使得应用的可读性和可维护性非常差Angular就不介绍了，最吸引人的无非是MVC不过做到">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Tyan | AbyChan | Blog" title="Tyan | AbyChan | Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tyan | AbyChan | Blog">Tyan | AbyChan | Blog</a></h1>
+				<h2 class="blog-motto">沙漠的另一边 沙漠罢了</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:tyan.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/28/Linux下uWSGI-NGINX部署Django-AngularJs/" title="Linux下uWSGI+NGINX部署Django+AngularJs" itemprop="url">Linux下uWSGI+NGINX部署Django+AngularJs</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://tyan.io" title="Tyan">Tyan</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-12-28T04:20:37.000Z" itemprop="datePublished">2014-12-28</time>
+    更新日期:<time datetime="2015-07-17T02:58:34.280Z" itemprop="dateModified">2015-07-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+		</div>
+		
+		<p>最近尝尝鲜，试试单页面框架Augular，之前就有单页面前端开发经验，不过那是用jQuery的<br>最近jQuery缺点太明显了，太臃肿了，大的前端应用往往都是一个一个jq组建，插件堆积而出，加上对DOM操作的随意性，使得应用的可读性和可维护性非常差<br>Angular就不介绍了，最吸引人的无非是MVC<br>不过做到一半遇到了一个致命性问题<br>应用是前后端分离的，angular的$http貌似只能处理同域的请求<br>例如我要请求www.google.com/someapi<br>会自动在前面加斜杠请求<br>我加上<a href="http://还是没用" target="_blank" rel="external">http://还是没用</a><br>能用上的各种方法都用过了<br>$httpProvider.defaults.useXDomain = true;<br>delete $httpProvider.defaults.headers.common[‘X-Requested-With’];<br>设置跨域也没用（1.X已经默认设置夸域了）<br>全部请求错误，request已经发出去了，服务器也响应了，但是response就是为空<br>（如果哪位前辈知道麻烦告诉本菜-。-）</p>
+<p>没办法，只能直接跟Django后端绑在一起了<br>nginx处理静态的angular，其他通过socket转到uWSGI处理<br>nginx：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#user  nobody;</span></span><br><span class="line">worker_processes  <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">#error_log  logs/error.log;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  notice;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  info;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#pid        logs/nginx.pid;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_<span class="built_in">type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span></span><br><span class="line">    <span class="comment">#                  '$status $body_bytes_sent "$http_referer" '</span></span><br><span class="line">    <span class="comment">#                  '"$http_user_agent" "$http_x_forwarded_for"';</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#access_log  logs/access.log  main;</span></span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    <span class="comment">#tcp_nopush     on;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#keepalive_timeout  0;</span></span><br><span class="line">    keepalive_timeout  <span class="number">65</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#gzip  on;</span></span><br><span class="line"></span><br><span class="line">    upstream django &#123;</span><br><span class="line">    <span class="comment"># server unix:///path/to/your/mysite/mysite.sock; # for a file socket</span></span><br><span class="line">    server <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8001</span>; <span class="comment"># for a web port socket (we'll use this first)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configuration of the server</span></span><br><span class="line">server &#123;</span><br><span class="line">    <span class="comment"># the port your site will be served on</span></span><br><span class="line">    listen      <span class="number">8000</span>;</span><br><span class="line">    <span class="comment"># the domain name it will serve for</span></span><br><span class="line">    server_name localhost; <span class="comment"># substitute your machine's IP address or FQDN</span></span><br><span class="line">    charset     utf-<span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># max upload size</span></span><br><span class="line">    client_max_body_size <span class="number">75</span>M;   <span class="comment"># adjust to taste</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Django media</span></span><br><span class="line">    location /media  &#123;</span><br><span class="line">        <span class="built_in">alias</span> /home/tyan/。。。。。;  <span class="comment"># your Django project's media files - amend as required</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location /static &#123;</span><br><span class="line">        <span class="built_in">alias</span> /home/tyan/python/stockPredict//dist/; <span class="comment"># your Django project's static files - amend as required</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Finally, send all non-media requests to the Django server.</span></span><br><span class="line">    location / &#123;</span><br><span class="line">        uwsgi_pass  django;</span><br><span class="line">        include     /home/tyan/...../uwsgi_params; <span class="comment"># the uwsgi_params file you installed</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># another virtual host using mix of IP-, name-, and port-based configuration</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment">#server &#123;</span></span><br><span class="line">    <span class="comment">#    listen       8000;</span></span><br><span class="line">    <span class="comment">#    listen       somename:8080;</span></span><br><span class="line">    <span class="comment">#    server_name  somename  alias  another.alias;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#    location / &#123;</span></span><br><span class="line">    <span class="comment">#        root   html;</span></span><br><span class="line">    <span class="comment">#        index  index.html index.htm;</span></span><br><span class="line">    <span class="comment">#    &#125;</span></span><br><span class="line">    <span class="comment">#&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># HTTPS server</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment">#server &#123;</span></span><br><span class="line">    <span class="comment">#    listen       443 ssl;</span></span><br><span class="line">    <span class="comment">#    server_name  localhost;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#    ssl_certificate      cert.pem;</span></span><br><span class="line">    <span class="comment">#    ssl_certificate_key  cert.key;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#    ssl_session_cache    shared:SSL:1m;</span></span><br><span class="line">    <span class="comment">#    ssl_session_timeout  5m;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#    ssl_ciphers  HIGH:!aNULL:!MD5;</span></span><br><span class="line">    <span class="comment">#    ssl_prefer_server_ciphers  on;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#    location / &#123;</span></span><br><span class="line">    <span class="comment">#        root   html;</span></span><br><span class="line">    <span class="comment">#        index  index.html index.htm;</span></span><br><span class="line">    <span class="comment">#    &#125;</span></span><br><span class="line">    <span class="comment">#&#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>uwigs_params</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">uwsgi_param  QUERY_STRING       <span class="variable">$query_string</span>;</span><br><span class="line">uwsgi_param  REQUEST_METHOD     <span class="variable">$request_method</span>;</span><br><span class="line">uwsgi_param  CONTENT_TYPE       <span class="variable">$content_type</span>;</span><br><span class="line">uwsgi_param  CONTENT_LENGTH     <span class="variable">$content_length</span>;</span><br><span class="line"></span><br><span class="line">uwsgi_param  REQUEST_URI        <span class="variable">$request_uri</span>;</span><br><span class="line">uwsgi_param  PATH_INFO          <span class="variable">$document_uri</span>;</span><br><span class="line">uwsgi_param  DOCUMENT_ROOT      <span class="variable">$document_root</span>;</span><br><span class="line">uwsgi_param  SERVER_PROTOCOL    <span class="variable">$server_protocol</span>;</span><br><span class="line">uwsgi_param  HTTPS              <span class="variable">$https</span> <span class="keyword">if</span>_not_empty;</span><br><span class="line"></span><br><span class="line">uwsgi_param  REMOTE_ADDR        <span class="variable">$remote_addr</span>;</span><br><span class="line">uwsgi_param  REMOTE_PORT        <span class="variable">$remote_port</span>;</span><br><span class="line">uwsgi_param  SERVER_PORT        <span class="variable">$server_port</span>;</span><br><span class="line">uwsgi_param  SERVER_NAME        <span class="variable">$server_name</span>;</span><br></pre></td></tr></table></figure>
+<p>uwsgi.ini(随便什么名字，放在manage.py旁边)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mysite_uwsgi.ini file</span></span><br><span class="line">[uwsgi]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Django-related settings</span></span><br><span class="line"><span class="comment"># the base directory (full path)</span></span><br><span class="line"><span class="built_in">chdir</span>           = /home/tyan/python/（项目目录,manage.py旁边)</span><br><span class="line"><span class="comment"># Django's wsgi file</span></span><br><span class="line">module          = (项目名字).wsgi</span><br><span class="line"><span class="comment"># the virtualenv (full path)</span></span><br><span class="line">home            = /home/tyan/env(虚拟环境，没用虚拟环境不填)</span><br><span class="line"></span><br><span class="line"><span class="comment"># process-related settings</span></span><br><span class="line"><span class="comment"># master</span></span><br><span class="line">master          = <span class="literal">true</span></span><br><span class="line"><span class="comment"># maximum number of worker processes</span></span><br><span class="line">processes       = <span class="number">10</span></span><br><span class="line"><span class="comment"># the socket (use the full path to be safe</span></span><br><span class="line">socket          = <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8001</span></span><br><span class="line"><span class="comment"># ... with appropriate permissions - may be needed</span></span><br><span class="line"><span class="comment"># chmod-socket    = 664</span></span><br><span class="line"><span class="comment"># clear environment on exit</span></span><br><span class="line">vacuum          = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>配置好了，进入项目目录运行uwsgi —ini uwsgi.ini<br>打开8000就能看到项目了，进入/static/就能看到angular，/static配置在nginx 那里，可以改，当然你的angular也能放在那里<br>注意uWSGI现在打开的socket，http打开是打不开的，必须通过nginx<br>如果单独打开uWSGI用http的话，可以在后面加参数uwsgi —ini uwsgi.ini —protocol=http<br>罗嗦一下，django的静态和meta目录一定要配好<br>以static为例url和root一样要配</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">STATIC_URL = <span class="string">'/static/'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">TEMPLATE_DIRS = (</span><br><span class="line">    os.path.join(os.path.dirname(__file__), <span class="string">'../'</span> <span class="string">'front/template/'</span>),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">STATIC_ROOT = os.path.join(os.path.dirname(__file__), <span class="string">'../'</span>, <span class="string">'static/'</span>)</span><br></pre></td></tr></table></figure>
+<p>urls.py：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line"><span class="keyword">from</span> django.conf.urls.static <span class="keyword">import</span> stati</span><br><span class="line">urlpatterns += [</span><br><span class="line">   。。。。。</span><br><span class="line">   namespace=<span class="string">'rest_framework'</span>)),</span><br><span class="line">] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/angular/">angular</a><a href="/tags/django/">django</a><a href="/tags/linux/">linux</a><a href="/tags/nginx/">nginx</a><a href="/tags/uWSGI/">uWSGI</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://tyan.io/2014/12/28/Linux下uWSGI-NGINX部署Django-AngularJs/" data-title="Linux下uWSGI+NGINX部署Django+AngularJs | Tyan | AbyChan | Blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/12/30/shell中调用R语言并传入参数的两种方法/" title="shell中调用R语言并传入参数的两种方法">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  shell中调用R语言并传入参数的两种方法</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/12/24/决策树ID3-C4-5详解和python实现与R语言实现比较/"  title="决策树ID3;C4.5详解和python实现与R语言实现比较">
+ <strong>NEXT:</strong><br/> 
+ <span>决策树ID3;C4.5详解和python实现与R语言实现比较
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/R/" title="R">R<sup>1</sup></a></li>
+		
+			<li><a href="/tags/RMysql/" title="RMysql">RMysql<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web前端架构/" title="Web前端架构">Web前端架构<sup>1</sup></a></li>
+		
+			<li><a href="/tags/angular/" title="angular">angular<sup>1</sup></a></li>
+		
+			<li><a href="/tags/arm/" title="arm">arm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/binary/" title="binary">binary<sup>1</sup></a></li>
+		
+			<li><a href="/tags/c4-5/" title="c4.5">c4.5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cb4/" title="cb4">cb4<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chrome/" title="chrome">chrome<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chroot/" title="chroot">chroot<sup>2</sup></a></li>
+		
+			<li><a href="/tags/chroot-jail/" title="chroot jail">chroot jail<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css3/" title="css3">css3<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cubieboard/" title="cubieboard">cubieboard<sup>1</sup></a></li>
+		
+			<li><a href="/tags/database/" title="database">database<sup>3</sup></a></li>
+		
+			<li><a href="/tags/dhcp/" title="dhcp">dhcp<sup>1</sup></a></li>
+		
+			<li><a href="/tags/django/" title="django">django<sup>2</sup></a></li>
+		
+			<li><a href="/tags/emacs/" title="emacs">emacs<sup>1</sup></a></li>
+		
+			<li><a href="/tags/emasc美化/" title="emasc美化">emasc美化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/fcitx/" title="fcitx">fcitx<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://tyan.io" target="_blank" title="Tyan">Tyan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  </body>
+</html>
