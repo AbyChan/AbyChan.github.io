@@ -1,0 +1,455 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="CUAKUN5g9a" />
+  <meta name="baidu-site-verification" content="ViRTrtwGYH" />
+  <meta name="google-site-verification" content="Z5ucKYssZF22VWhMEO7WwkgXBJVB-LAxvQ-Cm_bngYE" />
+  <meta name="msvalidate.01" content="A678E095ECF40383BB8A741C762FFB42" />
+  
+    <title>解决VMware桥接虚拟机不能连外网问题 | Tyan | AbyChan | Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Tyan">
+    
+    <meta name="description" content="之前公司电脑里面装的虚拟机用桥接模式一直不能连外网，不是很方便，因为桥接模式中，局域网才能访问到我的虚拟机，而我用的vmware player有各种奇怪的问题，做不了端口映射。
+突然！
+我突然发现虚拟机有一段时间能够访问外网了。
+奇了怪了，经过我的排查原因之后，发现原来是局域网路由器给我虚拟机分配的">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="null" />
+    <meta name="twitter:title" content="解决VMware桥接虚拟机不能连外网问题 | Tyan | AbyChan | Blog" />
+      
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/tyaniologo.png" alt="Tyan | AbyChan | Blog" title="Tyan | AbyChan | Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Tyan | AbyChan | Blog">Tyan | AbyChan | Blog</a></h1>
+				<h2 class="blog-motto">沙漠的另一边 沙漠罢了</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/hand">手作</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:tyan.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/07/30/解决VMware桥接虚拟机不能连外网问题/" title="解决VMware桥接虚拟机不能连外网问题" itemprop="url">解决VMware桥接虚拟机不能连外网问题</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/https://plus.google.com/abychan?rel=author" title="Tyan" target="_blank" itemprop="author">Tyan</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-07-30T11:36:56.000Z" itemprop="datePublished">2015-07-30</time>
+    更新日期:<time datetime="2015-07-30T11:49:48.485Z" itemprop="dateModified">2015-07-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+		</div>
+		
+		<p>之前公司电脑里面装的虚拟机用桥接模式一直不能连外网，不是很方便，因为桥接模式中，局域网才能访问到我的虚拟机，而我用的vmware player有各种奇怪的问题，做不了端口映射。</p>
+<p>突然！</p>
+<p>我突然发现虚拟机有一段时间能够访问外网了。</p>
+<p>奇了怪了，经过我的排查原因之后，发现原来是局域网路由器给我虚拟机分配的ip跟其他同事的ip冲突了。</p>
+<p>现在事情好办了。</p>
+<p>修改linux主机的网络链接，dhcp改为手动，挑一个没有冲突的ip，填好子网掩码，注意子网掩码一定要正确，不正确的话你能访问外网，但是局域网无法访问你的虚拟机的。</p>
+<p>在windows主机中，cmd-》ipconfig /all查看dns，填好dns</p>
+<p>这样，重新连接网络，就能解决问题了：）</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/vmware/">vmware</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://tyan.io/2015/07/30/解决VMware桥接虚拟机不能连外网问题/" data-title="解决VMware桥接虚拟机不能连外网问题 | Tyan | AbyChan | Blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/07/27/fiddler调试问题小结/"  title="fiddler调试问题小结">
+ <strong>NEXT:</strong><br/> 
+ <span>fiddler调试问题小结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+<section id="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</div>  
+
+
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">歸檔</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">6</span></li></ul>
+  </div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">標簽雲</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/RMysql/" style="font-size: 10px;">RMysql</a> <a href="/tags/Web前端架构/" style="font-size: 10px;">Web前端架构</a> <a href="/tags/angular/" style="font-size: 10px;">angular</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/binary/" style="font-size: 10px;">binary</a> <a href="/tags/c4-5/" style="font-size: 10px;">c4.5</a> <a href="/tags/cb4/" style="font-size: 10px;">cb4</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/chroot/" style="font-size: 12.5px;">chroot</a> <a href="/tags/chroot-jail/" style="font-size: 10px;">chroot jail</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/cubieboard/" style="font-size: 10px;">cubieboard</a> <a href="/tags/database/" style="font-size: 15px;">database</a> <a href="/tags/dhcp/" style="font-size: 10px;">dhcp</a> <a href="/tags/django/" style="font-size: 12.5px;">django</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/emasc美化/" style="font-size: 10px;">emasc美化</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/fiddler/" style="font-size: 12.5px;">fiddler</a> <a href="/tags/free/" style="font-size: 10px;">free</a> <a href="/tags/free-ssl/" style="font-size: 10px;">free ssl</a> <a href="/tags/gentoo/" style="font-size: 12.5px;">gentoo</a> <a href="/tags/get/" style="font-size: 10px;">get</a> <a href="/tags/gis/" style="font-size: 10px;">gis</a> <a href="/tags/hadoop/" style="font-size: 12.5px;">hadoop</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/id3/" style="font-size: 10px;">id3</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/kali/" style="font-size: 10px;">kali</a> <a href="/tags/knn/" style="font-size: 10px;">knn</a> <a href="/tags/k邻近/" style="font-size: 10px;">k邻近</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/linux-trick/" style="font-size: 10px;">linux-trick</a> <a href="/tags/liunx/" style="font-size: 10px;">liunx</a> <a href="/tags/logut/" style="font-size: 10px;">logut</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/metasploit/" style="font-size: 10px;">metasploit</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/mysql5-6/" style="font-size: 10px;">mysql5.6</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/one/" style="font-size: 10px;">one</a> <a href="/tags/oop/" style="font-size: 10px;">oop</a> <a href="/tags/opensuse/" style="font-size: 15px;">opensuse</a> <a href="/tags/opensuse13-2/" style="font-size: 10px;">opensuse13.2</a> <a href="/tags/opensuse依赖/" style="font-size: 10px;">opensuse依赖</a> <a href="/tags/openvpn/" style="font-size: 10px;">openvpn</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/oss/" style="font-size: 10px;">oss</a> <a href="/tags/port/" style="font-size: 10px;">port</a> <a href="/tags/port-forwarding/" style="font-size: 10px;">port forwarding</a> <a href="/tags/post/" style="font-size: 10px;">post</a> <a href="/tags/postgresql/" style="font-size: 12.5px;">postgresql</a> <a href="/tags/pretty-mode/" style="font-size: 10px;">pretty-mode</a> <a href="/tags/prot-mapping/" style="font-size: 10px;">prot mapping</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python机器学习/" style="font-size: 10px;">python机器学习</a> <a href="/tags/raspberry/" style="font-size: 10px;">raspberry</a> <a href="/tags/restful/" style="font-size: 10px;">restful</a> <a href="/tags/r语言/" style="font-size: 10px;">r语言</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/shh/" style="font-size: 10px;">shh</a> <a href="/tags/spa/" style="font-size: 10px;">spa</a> <a href="/tags/spring/" style="font-size: 12.5px;">spring</a> <a href="/tags/spring-junit4/" style="font-size: 10px;">spring junit4</a> <a href="/tags/ssl/" style="font-size: 12.5px;">ssl</a> <a href="/tags/terminal/" style="font-size: 10px;">terminal</a> <a href="/tags/transition/" style="font-size: 10px;">transition</a> <a href="/tags/uWSGI/" style="font-size: 10px;">uWSGI</a> <a href="/tags/vmware/" style="font-size: 10px;">vmware</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web-gis/" style="font-size: 10px;">web gis</a> <a href="/tags/welcome/" style="font-size: 10px;">welcome</a> <a href="/tags/wifi/" style="font-size: 10px;">wifi</a> <a href="/tags/wifi干扰/" style="font-size: 10px;">wifi干扰</a> <a href="/tags/乱码/" style="font-size: 10px;">乱码</a> <a href="/tags/关键字/" style="font-size: 10px;">关键字</a> <a href="/tags/前端/" style="font-size: 17.5px;">前端</a> <a href="/tags/单元测试/" style="font-size: 10px;">单元测试</a> <a href="/tags/单页面应用/" style="font-size: 10px;">单页面应用</a> <a href="/tags/回滚/" style="font-size: 10px;">回滚</a> <a href="/tags/大数据/" style="font-size: 10px;">大数据</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/数据爬取/" style="font-size: 10px;">数据爬取</a> <a href="/tags/数据采集/" style="font-size: 10px;">数据采集</a> <a href="/tags/替换元素/" style="font-size: 10px;">替换元素</a> <a href="/tags/服务器模板/" style="font-size: 10px;">服务器模板</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a> <a href="/tags/百度知道/" style="font-size: 10px;">百度知道</a> <a href="/tags/端口映射/" style="font-size: 10px;">端口映射</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a> <a href="/tags/网桥/" style="font-size: 10px;">网桥</a> <a href="/tags/输入法/" style="font-size: 10px;">输入法</a> <a href="/tags/过渡/" style="font-size: 10px;">过渡</a> <a href="/tags/预测/" style="font-size: 10px;">预测</a> <a href="/tags/高度过渡/" style="font-size: 10px;">高度过渡</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://morris821028.github.io/" target="_blank" title="Hexo">Morris' Blog</a></li>
+    </ul>
+</div>
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/R/" title="R">R<sup>1</sup></a></li>
+		
+			<li><a href="/tags/RMysql/" title="RMysql">RMysql<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web前端架构/" title="Web前端架构">Web前端架构<sup>1</sup></a></li>
+		
+			<li><a href="/tags/angular/" title="angular">angular<sup>1</sup></a></li>
+		
+			<li><a href="/tags/arm/" title="arm">arm<sup>1</sup></a></li>
+		
+			<li><a href="/tags/binary/" title="binary">binary<sup>1</sup></a></li>
+		
+			<li><a href="/tags/c4-5/" title="c4.5">c4.5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cb4/" title="cb4">cb4<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chrome/" title="chrome">chrome<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chroot/" title="chroot">chroot<sup>2</sup></a></li>
+		
+			<li><a href="/tags/chroot-jail/" title="chroot jail">chroot jail<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+		
+			<li><a href="/tags/css3/" title="css3">css3<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cubieboard/" title="cubieboard">cubieboard<sup>1</sup></a></li>
+		
+			<li><a href="/tags/database/" title="database">database<sup>3</sup></a></li>
+		
+			<li><a href="/tags/dhcp/" title="dhcp">dhcp<sup>1</sup></a></li>
+		
+			<li><a href="/tags/django/" title="django">django<sup>2</sup></a></li>
+		
+			<li><a href="/tags/emacs/" title="emacs">emacs<sup>1</sup></a></li>
+		
+			<li><a href="/tags/emasc美化/" title="emasc美化">emasc美化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/fcitx/" title="fcitx">fcitx<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div id="recentcomments" class="dsq-widget">
+  <p class="asidetitle">最近评论</p>
+  <script type="text/javascript" src="http://tyanio.disqus.com/recent_comments_widget.js?num_items=10&hide_avatars=1&avatar_size=32&excerpt_length=100&hide_mods=0"></script>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 走得越近 听得越多 <br/>
+			 </p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/null" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/null" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/https://github.com/abychan" target="_blank" title="github"></a>
+		
+		
+		<a href="https://www.facebook.com/null" target="_blank" title="facebook"></a>
+		
+		
+        <a href="https://www.linkedin.com/null" target="_blank" title="linkedin"></a>
+        
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://tyan.io" target="_blank" title="Tyan">Tyan</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script src="/js/pin.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){ 
+ 
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+
+
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+<script>
+  var disqus_shortname = 'tyanio';
+  
+  var disqus_url = 'http://tyan.io/2015/07/30/解决VMware桥接虚拟机不能连外网问题/';
+  
+  (function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+  </body>
+</html>

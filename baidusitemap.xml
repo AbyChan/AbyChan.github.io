@@ -3,6 +3,23 @@
 
     
   <url>
+    <loc>http://tyan.io/2015/07/30/%E8%A7%A3%E5%86%B3VMware%E6%A1%A5%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8D%E8%83%BD%E8%BF%9E%E5%A4%96%E7%BD%91%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2015-07-30T11:49:48.485Z</lastmod>
+    <data>
+        <display>
+        <title>解决VMware桥接虚拟机不能连外网问题</title>
+        <pubTime>2015-07-30T11:36:56.000Z</pubTime>
+        
+        <tag>vmware </tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tyan.io/2015/07/27/fiddler%E8%B0%83%E8%AF%95%E9%97%AE%E9%A2%98%E5%B0%8F%E7%BB%93/</loc>
     <lastmod>2015-07-27T13:13:45.271Z</lastmod>
     <data>
@@ -34,77 +51,6 @@
         <tag>prot mapping </tag>
          
         <tag>端口映射 </tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://tyan.io/2015/06/30/%E6%95%99%E5%A4%A7%E5%AE%B6%E7%94%B3%E8%AF%B7%E5%85%8D%E8%B4%B9ssl%E8%AF%81%E4%B9%A6/</loc>
-    <lastmod>2015-07-17T02:58:34.288Z</lastmod>
-    <data>
-        <display>
-        <title>教大家申请免费ssl证书</title>
-        <pubTime>2015-06-30T05:31:26.000Z</pubTime>
-        
-        <tag>free </tag>
-         
-        <tag>free ssl </tag>
-         
-        <tag>ssl </tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-    
-  <url>
-    <loc>http://tyan.io/2015/06/30/%E6%89%93%E9%80%A0%E6%BC%82%E4%BA%AE%E7%9A%84%E7%BB%88%E7%AB%AF%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/</loc>
-    <lastmod>2015-07-17T02:58:34.288Z</lastmod>
-    <data>
-        <display>
-        <title>打造漂亮的终端欢迎界面</title>
-        <pubTime>2015-06-30T03:33:16.000Z</pubTime>
-        
-        <tag>linux-trick </tag>
-         
-        <tag>liunx </tag>
-         
-        <tag>terminal </tag>
-         
-        <tag>welcome </tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-    
-    
-    
-  <url>
-    <loc>http://tyan.io/2015/05/10/%E6%95%99%E4%BD%A0%E7%94%A8Django%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84GIS%E5%8A%9F%E8%83%BD/</loc>
-    <lastmod>2015-07-17T02:58:34.288Z</lastmod>
-    <data>
-        <display>
-        <title>教你用Django实现一个简单的GIS功能</title>
-        <pubTime>2015-05-10T04:07:17.000Z</pubTime>
-        
-        <tag>django </tag>
-         
-        <tag>gis </tag>
-         
-        <tag>postgresql </tag>
-         
-        <tag>web gis </tag>
          
          
            
@@ -158,6 +104,77 @@
 
     
   <url>
+    <loc>http://tyan.io/2015/06/30/%E6%89%93%E9%80%A0%E6%BC%82%E4%BA%AE%E7%9A%84%E7%BB%88%E7%AB%AF%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/</loc>
+    <lastmod>2015-07-17T02:58:34.288Z</lastmod>
+    <data>
+        <display>
+        <title>打造漂亮的终端欢迎界面</title>
+        <pubTime>2015-06-30T03:33:16.000Z</pubTime>
+        
+        <tag>linux-trick </tag>
+         
+        <tag>liunx </tag>
+         
+        <tag>terminal </tag>
+         
+        <tag>welcome </tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+    
+  <url>
+    <loc>http://tyan.io/2015/06/30/%E6%95%99%E5%A4%A7%E5%AE%B6%E7%94%B3%E8%AF%B7%E5%85%8D%E8%B4%B9ssl%E8%AF%81%E4%B9%A6/</loc>
+    <lastmod>2015-07-17T02:58:34.288Z</lastmod>
+    <data>
+        <display>
+        <title>教大家申请免费ssl证书</title>
+        <pubTime>2015-06-30T05:31:26.000Z</pubTime>
+        
+        <tag>free </tag>
+         
+        <tag>free ssl </tag>
+         
+        <tag>ssl </tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
+    <loc>http://tyan.io/2015/05/10/%E6%95%99%E4%BD%A0%E7%94%A8Django%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84GIS%E5%8A%9F%E8%83%BD/</loc>
+    <lastmod>2015-07-17T02:58:34.288Z</lastmod>
+    <data>
+        <display>
+        <title>教你用Django实现一个简单的GIS功能</title>
+        <pubTime>2015-05-10T04:07:17.000Z</pubTime>
+        
+        <tag>django </tag>
+         
+        <tag>gis </tag>
+         
+        <tag>postgresql </tag>
+         
+        <tag>web gis </tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tyan.io/2015/04/30/kali%E4%B8%8B%E8%BF%9B%E8%A1%8Cwifi%E5%B9%B2%E6%89%B0/</loc>
     <lastmod>2015-07-17T02:58:34.284Z</lastmod>
     <data>
@@ -202,27 +219,6 @@
 
     
   <url>
-    <loc>http://tyan.io/2015/06/09/linux%E7%BD%91%E7%BB%9C%E5%88%86%E4%BA%AB%E6%9D%82%E8%B0%88/</loc>
-    <lastmod>2015-07-17T02:58:34.284Z</lastmod>
-    <data>
-        <display>
-        <title>linux网络分享杂谈</title>
-        <pubTime>2015-06-08T17:45:09.000Z</pubTime>
-        
-        <tag>dhcp </tag>
-         
-        <tag>linux </tag>
-         
-        <tag>网桥 </tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://tyan.io/2014/12/30/shell%E4%B8%AD%E8%B0%83%E7%94%A8R%E8%AF%AD%E8%A8%80%E5%B9%B6%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/</loc>
     <lastmod>2015-07-17T02:58:34.284Z</lastmod>
     <data>
@@ -235,6 +231,27 @@
         <tag>r语言 </tag>
          
         <tag>shell </tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://tyan.io/2014/11/23/linux%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85mysql5-6/</loc>
+    <lastmod>2015-07-17T02:58:34.284Z</lastmod>
+    <data>
+        <display>
+        <title>linux二进制安装mysql5.6</title>
+        <pubTime>2014-11-23T03:34:07.000Z</pubTime>
+        
+        <tag>binary </tag>
+         
+        <tag>linux </tag>
+         
+        <tag>mysql5.6 </tag>
          
          
            
@@ -452,18 +469,18 @@
 
     
   <url>
-    <loc>http://tyan.io/2014/11/23/linux%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85mysql5-6/</loc>
+    <loc>http://tyan.io/2015/06/09/linux%E7%BD%91%E7%BB%9C%E5%88%86%E4%BA%AB%E6%9D%82%E8%B0%88/</loc>
     <lastmod>2015-07-17T02:58:34.284Z</lastmod>
     <data>
         <display>
-        <title>linux二进制安装mysql5.6</title>
-        <pubTime>2014-11-23T03:34:07.000Z</pubTime>
+        <title>linux网络分享杂谈</title>
+        <pubTime>2015-06-08T17:45:09.000Z</pubTime>
         
-        <tag>binary </tag>
+        <tag>dhcp </tag>
          
         <tag>linux </tag>
          
-        <tag>mysql5.6 </tag>
+        <tag>网桥 </tag>
          
          
            
